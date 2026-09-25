@@ -10,14 +10,25 @@ const WorkoutButtons = ({card}) => {
     savedWorkout,
     setSavedWorkout,
   } = useContext(WorkoutContext);
-  const addToPlan = () => {
-    console.log("added to plan");
-    setPlannedWorkout([...plannedWorkout, card]);
-  };
+const addToPlan = () => {
+  const alreadyAdded = plannedWorkout.find(
+    (workout) => workout.id === card.id
+  );
 
-  const saveForLater = () => {
+  if (!alreadyAdded) {
+    setPlannedWorkout([...plannedWorkout, card]);
+  }
+};
+
+ const saveForLater = () => {
+  const alreadySaved = savedWorkout.find(
+    (workout) => workout.id === card.id
+  );
+
+  if (!alreadySaved) {
     setSavedWorkout([...savedWorkout, card]);
-  };
+  }
+};
 
 
     return (

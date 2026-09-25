@@ -1,7 +1,13 @@
+'use client'
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useContext } from "react";
+import { WorkoutContext } from "../context/WorkoutContext";
 const Navbar = () => {
+
+
+const { plannedWorkout, savedWorkout } = useContext(WorkoutContext);
   return (
     <nav className="sticky top-0  bg-black flex justify-between items-center px-3 sm:px-8 py-3 sm:py-4">
       {/* Left */}
@@ -39,11 +45,11 @@ const Navbar = () => {
       {/* Right */}
       <div className="flex flex-col min-[451px]:flex-row gap-1 min-[451px]:gap-6">
         <Link href="/MyPlan"  className="text-gray-400 text-base max-[450px]:text-xs">
-          Plan
-        </Link>
+   Plan: {plannedWorkout.length}      
+     </Link>
 
         <Link  href="/MyPlan" className="text-gray-400 text-base max-[450px]:text-xs">
-          Saved
+          Saved: {savedWorkout.length}
         </Link>
       </div>
     </nav>

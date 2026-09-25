@@ -3,20 +3,28 @@ import { useContext } from "react";
 import { WorkoutContext } from "../context/WorkoutContext";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 const MyPlan = () => {
     const {
   plannedWorkout,
     setPlannedWorkout,
   savedWorkout,
+  setSavedWorkout,
   
 } = useContext(WorkoutContext);
 
-const totalTime = plannedWorkout.reduce(
+const [activeTab, setActiveTab] = useState("today");
+
+const currentWorkout =
+  activeTab === "today" ? plannedWorkout : savedWorkout;
+
+
+const totalTime = currentWorkout.reduce(
   (sum, workout) => sum + workout.duration,
   0
 );
 
-const totalCal = plannedWorkout.reduce(
+const totalCal = currentWorkout.reduce(
   (sum, workout) => sum + workout.caloriesBurned,
   0
 );
@@ -27,8 +35,11 @@ const removeWorkout= (id)=>{
   plannedWorkout.filter((workout) => workout.id !== id)
 );
 }
-
-
+const removeSavedWorkout = (id) => {
+  setSavedWorkout(
+    savedWorkout.filter((workout) => workout.id !== id)
+  );
+};
 
 // console.log(plannedWorkout);
   return (
@@ -46,7 +57,7 @@ const removeWorkout= (id)=>{
       <div className="flex justify-around items-center border border rounded-2xl py-5 mb-8">
         <div className="text-center">
           <p className="text-gray-500 text-sm sm:text-base">Exercises</p>
-          <p className="text-lime-400 font-bold text-lg sm:text-xl"> {plannedWorkout.length}</p>
+          <p className="text-lime-400 font-bold text-lg sm:text-xl"> {currentWorkout.length}</p>
         </div>
 
         <div className="text-center">
@@ -64,13 +75,26 @@ const removeWorkout= (id)=>{
       <div className="flex flex-col sm:flex-row justify-between gap-4 mb-6">
         {/* Left buttons */}
         <div className="flex gap-2 border border py-1 rounded-[20px]">
-          <button className="px-4 py-2 rounded-full bg-lime-400 text-black font-semibold text-sm">
-            Today's Plan
-          </button>
+         <button
+  onClick={() => setActiveTab("today")}
+  className={`px-4 py-2 rounded-full font-semibold text-sm ${
+    activeTab === "today"
+      ? "bg-lime-400 text-black"
+      : "bg-gray-900"
+  }`}
+>
+  Today's Plan
+</button>
 
-          <button className="bg-gray-900 px-4 py-2 rounded-full border text-sm">
-            Saved
-          </button>
+<button
+  onClick={() => setActiveTab("saved")}
+  className={`px-4 py-2 rounded-full border text-sm ${
+    activeTab === "saved"
+      ? "bg-lime-400 text-black" : "bg-gray-900"
+  }`}
+>
+  Saved
+</button>
         </div>
 
         {/* Right buttons */}
@@ -88,7 +112,7 @@ const removeWorkout= (id)=>{
       </div>
 
       {/* Empty state */}
-      <div className={` ${plannedWorkout.length===0?"block":"hidden"}    min-h-[300px] border rounded-xl flex flex-col justify-center items-center text-center px-4`}>
+      <div className={` ${currentWorkout.length===0?"block":"hidden"}    min-h-[300px] border rounded-xl flex flex-col justify-center items-center text-center px-4`}>
         <h2 className="font-bold text-xl sm:text-2xl mb-2">
           Nothing here yet
         </h2>
@@ -98,7 +122,7 @@ const removeWorkout= (id)=>{
         </p>
 
         <Link 
-        href={`/`}
+        href={`/#cardsection`}
         className="bg-lime-400 text-black font-semibold px-6 py-3 rounded-[20px]">
           Go to workouts
         </Link>
@@ -106,9 +130,9 @@ const removeWorkout= (id)=>{
 
 {/* if not empty */}
 <div
-  className={`${plannedWorkout.length === 0 ? "hidden" : "block"} min-h-[300px] border rounded-xl p-4`}
+  className={`${currentWorkout.length === 0 ? "hidden" : "block"} min-h-[300px] border rounded-xl p-4`}
 >
-  {plannedWorkout.map((workout) => (
+  {currentWorkout.map((workout) => (
     <div
       key={workout.id}
       className="flex justify-between items-center gap-4"
@@ -157,11 +181,16 @@ href={`/${workout.id}`}
           Mark as Done
         </Link>
 
-        <button 
-        onClick={()=>removeWorkout(workout.id)}
-        className="text-red-400 text-xl px-2">
-          ×
-        </button>
+       <button
+  onClick={() =>
+    activeTab === "today"
+      ? removeWorkout(workout.id)
+      : removeSavedWorkout(workout.id)
+  }
+  className="text-red-400 text-xl px-2"
+>
+  ×
+</button>
 
       </div>
 

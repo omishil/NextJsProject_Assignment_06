@@ -4,7 +4,7 @@ import Link from "next/link";
 const Card = ({ card }) => {
   return (<>
   <Link href={`/${card.id}`}>
-    <div className="rounded-[10px] bg-[#20242E] ">
+    <div className=" hover:border border-white  rounded-[10px] bg-[#20242E] ">
       {/* Image */}
       <div className=" h-52">
         <Image
