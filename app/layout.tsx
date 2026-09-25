@@ -4,6 +4,8 @@ import "./globals.css";
 import Footer from "./component/Footer";
 import Navbar from "./component/NavBar";
 
+import WorkoutProvider from "./context/WorkoutContext";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -28,12 +30,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 
 
       
-      <body className="min-h-full flex flex-col">
-        <Navbar></Navbar>
-        
-        {children}
-        <Footer></Footer>
-        </body>
+   <body className="min-h-full flex flex-col">
+  <WorkoutProvider>
+    <Navbar />
+
+    {children}
+
+    <Footer />
+  </WorkoutProvider>
+</body>
     </html>
   );
 }

@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 const Navbar = () => {
   return (
-    <nav className="bg-black flex justify-between items-center px-3 sm:px-8 py-3 sm:py-4">
+    <nav className="sticky top-0  bg-black flex justify-between items-center px-3 sm:px-8 py-3 sm:py-4">
       {/* Left */}
       <div className="flex items-center gap-1 sm:gap-2">
         <Image
@@ -38,13 +38,13 @@ const Navbar = () => {
 
       {/* Right */}
       <div className="flex flex-col min-[451px]:flex-row gap-1 min-[451px]:gap-6">
-        <p className="text-gray-400 text-base max-[450px]:text-xs">
+        <Link href="/MyPlan"  className="text-gray-400 text-base max-[450px]:text-xs">
           Plan
-        </p>
+        </Link>
 
-        <p className="text-gray-400 text-base max-[450px]:text-xs">
+        <Link  href="/MyPlan" className="text-gray-400 text-base max-[450px]:text-xs">
           Saved
-        </p>
+        </Link>
       </div>
     </nav>
   );

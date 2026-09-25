@@ -1,5 +1,10 @@
 import React from 'react';
+
 import Image from 'next/image';
+import { WorkoutContext } from "../context/WorkoutContext";
+import { useContext } from 'react';
+import WorkoutButtons from '../component/WorkoutButtons'
+
 
 const CardDetails = async ({ params }) => {
 
@@ -10,6 +15,7 @@ const CardDetails = async ({ params }) => {
     );
 
     const card = await res.json();
+
 
     return (
         <div className=" bg-[#111318] text-white px-5 py-10">
@@ -168,17 +174,7 @@ const CardDetails = async ({ params }) => {
 
         {/* Buttons */}
 
-        <div className="flex flex-col sm:flex-row gap-3">
-
-            <button className="flex-1 bg-lime-400 text-black font-semibold py-3 rounded-lg hover:bg-lime-300 transition">
-                Add to today's plan
-            </button>
-
-            <button className="flex-1 border border-gray-600 text-white font-semibold py-3 rounded-lg hover:bg-[#20242E] transition">
-                Save for later
-            </button>
-
-        </div>
+      <WorkoutButtons card={card} key={card.id}></WorkoutButtons>
 
     </div>
 

@@ -20,9 +20,11 @@ const Banner = () => {
           today's plan, and watch the weeks work add up.
         </p>
 
-        <button className="bg-lime-400 text-black font-semibold px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base uppercase">
+        <a 
+        href="#cardsection"
+        className="bg-lime-400 text-black font-semibold px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base uppercase">
           Browse Workouts
-        </button>
+        </a>
       </div>
 
       {/* Right Side - Image */}
