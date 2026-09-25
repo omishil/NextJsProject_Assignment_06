@@ -2,7 +2,7 @@
 import React from 'react';
 import { useContext } from 'react';
 import {WorkoutContext} from '../context/WorkoutContext';
-
+import toast from "react-hot-toast";
 const WorkoutButtons = ({card}) => {
       const {
     plannedWorkout,
@@ -14,9 +14,13 @@ const addToPlan = () => {
   const alreadyAdded = plannedWorkout.find(
     (workout) => workout.id === card.id
   );
-
+ if (alreadyAdded) {
+    toast.error("Already added in today's plan");
+    return;
+  }
   if (!alreadyAdded) {
     setPlannedWorkout([...plannedWorkout, card]);
+      toast.success("Added to today's plan");
   }
 };
 
@@ -24,9 +28,14 @@ const addToPlan = () => {
   const alreadySaved = savedWorkout.find(
     (workout) => workout.id === card.id
   );
-
+  if (alreadySaved) {
+    toast.error("Already saved");
+    return;
+  }
   if (!alreadySaved) {
     setSavedWorkout([...savedWorkout, card]);
+      toast.success("Saved for later");
+
   }
 };
 

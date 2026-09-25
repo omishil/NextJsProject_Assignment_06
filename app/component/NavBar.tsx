@@ -44,12 +44,14 @@ const { plannedWorkout, savedWorkout } = useContext(WorkoutContext);
 
       {/* Right */}
       <div className="flex flex-col min-[451px]:flex-row gap-1 min-[451px]:gap-6">
-        <Link href="/MyPlan"  className="text-gray-400 text-base max-[450px]:text-xs">
-   Plan: {plannedWorkout.length}      
+        <Link href="/MyPlan"  className=" text-gray-400 text-base max-[450px]:text-xs">
+   Plan 
+   <p className="ml-1 px-1.5 inline bg-lime-400 font-semibold text-black p-0.5 rounded-[30px]">{plannedWorkout.length}</p>      
      </Link>
 
         <Link  href="/MyPlan" className="text-gray-400 text-base max-[450px]:text-xs">
-          Saved: {savedWorkout.length}
+          Saved
+          <p className="ml-1 px-1.5 inline border border-gray-400 text-white p-0.5 rounded-[30px]">{savedWorkout.length}</p> 
         </Link>
       </div>
     </nav>

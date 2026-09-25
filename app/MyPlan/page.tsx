@@ -4,6 +4,7 @@ import { WorkoutContext } from "../context/WorkoutContext";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import toast from "react-hot-toast";
 const MyPlan = () => {
     const {
   plannedWorkout,
@@ -122,7 +123,7 @@ const removeSavedWorkout = (id) => {
         </p>
 
         <Link 
-        href={`/#cardsection`}
+        href={`/`}
         className="bg-lime-400 text-black font-semibold px-6 py-3 rounded-[20px]">
           Go to workouts
         </Link>
@@ -166,33 +167,34 @@ const removeSavedWorkout = (id) => {
 
       </div>
 
-      <div className="flex items-center gap-2">
+   <div className="flex flex-col sm:flex-row items-center gap-2">
 
-        <Link   
-href={`/${workout.id}`}
+  <Link
+    href={`/${workout.id}`}
+    className="border px-2 sm:px-4 py-2 rounded-lg text-xs sm:text-sm"
+  >
+    View Details
+  </Link>
 
-        className="border px-4 py-2 rounded-lg">
-          View Details
-        </Link>
+  <button
+    onClick={() => toast.success("Workout marked as done!")}
+    className="bg-lime-400 text-black px-2 sm:px-4 py-2 rounded-lg text-xs sm:text-sm"
+  >
+    Mark as Done
+  </button>
 
-        <Link  
-        href={`/${workout.id}`}
-        className="bg-lime-400 text-black px-4 py-2 rounded-lg">
-          Mark as Done
-        </Link>
+  <button
+    onClick={() =>
+      activeTab === "today"
+        ? removeWorkout(workout.id)
+        : removeSavedWorkout(workout.id)
+    }
+    className="text-red-400 text-lg sm:text-xl px-1 sm:px-2"
+  >
+    ×
+  </button>
 
-       <button
-  onClick={() =>
-    activeTab === "today"
-      ? removeWorkout(workout.id)
-      : removeSavedWorkout(workout.id)
-  }
-  className="text-red-400 text-xl px-2"
->
-  ×
-</button>
-
-      </div>
+</div>
 
     </div>
   ))}
