@@ -15,11 +15,31 @@ const MyPlan = () => {
 } = useContext(WorkoutContext);
 
 const [activeTab, setActiveTab] = useState("today");
+const [sortedWorkout, setSortedWorkout] = useState("duration");
+
+
+
 
 const currentWorkout =
   activeTab === "today" ? plannedWorkout : savedWorkout;
 
 
+
+
+// make a cpy
+const sorted = [...currentWorkout];
+
+if (sortedWorkout === "duration") {
+  sorted.sort((a, b) => b.duration - a.duration);
+}
+
+if (sortedWorkout === "calories") {
+  sorted.sort((a, b) => b.caloriesBurned - a.caloriesBurned);
+}
+
+if (sortedWorkout === "rating") {
+  sorted.sort((a, b) => b.rating - a.rating);
+}
 const totalTime = currentWorkout.reduce(
   (sum, workout) => sum + workout.duration,
   0
@@ -103,11 +123,14 @@ const removeSavedWorkout = (id) => {
           <button className="px-4 py-2 rounded-full border text-sm">
             Sort By
           </button>
-
-          <select className="bg-gray-900 text-white px-4 py-2 rounded-full border text-sm outline-none">
+<select
+  value={sortedWorkout}
+  onChange={(e) => setSortedWorkout(e.target.value)}
+  className="bg-gray-900 text-white px-4 py-2 rounded-full border text-sm "
+>
   <option value="duration">Duration</option>
   <option value="calories">Calories</option>
-  <option value="timing">Timing</option>
+  <option value="rating">Rating</option>
 </select>
         </div>
       </div>
@@ -133,7 +156,7 @@ const removeSavedWorkout = (id) => {
 <div
   className={`${currentWorkout.length === 0 ? "hidden" : "block"} min-h-[300px] border rounded-xl p-4`}
 >
-  {currentWorkout.map((workout) => (
+  {sorted.map((workout) => (
     <div
       key={workout.id}
       className="flex justify-between items-center gap-4"
