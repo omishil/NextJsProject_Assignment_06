@@ -10,7 +10,7 @@ const CardDetails = async ({ params }) => {
     const { cardId } = await params;
 
     const res = await fetch(
-        `https://api.abcz.workers.dev/api/fitlog/${cardId}`
+        `https://api.api-store.workers.dev/api/fitlog/${cardId}`
     );
 if (!res.ok) {
   notFound();

@@ -40,6 +40,7 @@ if (sortedWorkout === "calories") {
 if (sortedWorkout === "rating") {
   sorted.sort((a, b) => b.rating - a.rating);
 }
+
 const totalTime = currentWorkout.reduce(
   (sum, workout) => sum + workout.duration,
   0
