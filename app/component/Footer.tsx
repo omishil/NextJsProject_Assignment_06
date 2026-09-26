@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 const Footer = () => {
   return (
-    <footer className="bg-black flex flex-col sm:flex-row justify-between items-center gap-3 px-6 sm:px-8 md:px-12 py-6">
+    <footer className=" bg-black flex flex-col sm:flex-row justify-between items-center gap-3 px-6 sm:px-8 md:px-12 py-6">
       {/* Left Side */}
       
     <div className="flex items-center gap-2">

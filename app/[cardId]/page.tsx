@@ -1,8 +1,7 @@
 import React from 'react';
-
+import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { WorkoutContext } from "../context/WorkoutContext";
-import { useContext } from 'react';
 import WorkoutButtons from '../component/WorkoutButtons'
 
 
@@ -13,7 +12,9 @@ const CardDetails = async ({ params }) => {
     const res = await fetch(
         `https://api.abcz.workers.dev/api/fitlog/${cardId}`
     );
-
+if (!res.ok) {
+  notFound();
+}
     const card = await res.json();
 
 
