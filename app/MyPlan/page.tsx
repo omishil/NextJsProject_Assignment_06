@@ -176,18 +176,28 @@ const removeSavedWorkout = (id) => {
     View Details
   </Link>
 
+{activeTab === "today" ? (
   <button
-    onClick={() => toast.success("Workout marked as done!")}
+    onClick={() => {
+      removeWorkout(workout.id);
+      toast.success("Workout marked as done!");
+    }}
     className="bg-lime-400 text-black px-2 sm:px-4 py-2 rounded-lg text-xs sm:text-sm"
   >
-    Mark as Done
+    ✓ Mark as Done
   </button>
+) : ""}
 
   <button
-    onClick={() =>
-      activeTab === "today"
-        ? removeWorkout(workout.id)
-        : removeSavedWorkout(workout.id)
+    onClick={() =>{
+    if (activeTab === "today") {
+      removeWorkout(workout.id);
+    } else {
+      removeSavedWorkout(workout.id);
+    }
+
+    toast.success("Workout removed!");
+  }
     }
     className="text-red-400 text-lg sm:text-xl px-1 sm:px-2"
   >
